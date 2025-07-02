@@ -43,8 +43,12 @@ public class Empleado {
     @Column(name = "fecha_ingreso")
     private String fecha_ingreso;
 
-    @Column(name = "fecha_salida")
-    private String fecha_salida;
+    @Column(name = "fecha_update")
+    private String fecha_update;
+
+    @Column(name = "activo")
+    private boolean activo;
+
 }
 
 

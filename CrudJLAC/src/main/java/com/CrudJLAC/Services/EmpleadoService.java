@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -41,6 +42,8 @@ public class EmpleadoService {
      */
     @Transactional
     public Empleado saveEmpleado(Empleado empleado) {
+        empleado.setFecha_ingreso(String.valueOf(LocalDate.now()));
+        empleado.setActivo(true);
         return empleadoRepository.save(empleado);
     }
 
@@ -64,8 +67,8 @@ public class EmpleadoService {
         empleado.setPuesto(empleadoDetails.getPuesto());
         empleado.setSalario(empleadoDetails.getSalario());
         empleado.setFecha_nacimiento(empleadoDetails.getFecha_nacimiento());
-        empleado.setFecha_ingreso(empleadoDetails.getFecha_ingreso());
-        empleado.setFecha_salida(empleadoDetails.getFecha_salida());
+        empleado.setActivo(empleadoDetails.isActivo());
+        empleado.setFecha_update(String.valueOf(LocalDate.now()));
 
         return empleadoRepository.save(empleado);
     }
