@@ -1,0 +1,16 @@
+services:
+  crud-jlac-backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: crud-jlac-backend
+    ports:
+      - "8090:8080"
+    dns:
+      - 8.8.8.8
+    tty: true
+
+networks:
+  default:
+    external: true
+    name: app-net

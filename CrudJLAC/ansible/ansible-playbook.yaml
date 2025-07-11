@@ -1,0 +1,34 @@
+---
+- name: playbook
+  hosts: "{{entorno}}"
+  tasks:
+    - name: Clonando repositorio git JLAC008 CrudBackend
+      git:
+        repo: "https://github.com/JLAC008/CrudBackend"
+        dest: "/home/proyectos/JLAC008/CrudBackend"
+        force: yes
+        update: yes
+
+    - name: Copiando la carpeta resources
+      ansible.builtin.copy:
+        src: ~/IdeaProjects/CrudBackend/CrudJLAC/src/main/resources/
+        dest: /home/proyectos/JLAC008/CrudBackend/CrudJLAC/src/main/resources/
+
+    - name: Run `docker-compose down`
+      community.docker.docker_compose_v2:
+        project_src: /home/proyectos/JLAC008/CrudBackend/docker
+        state: absent
+      register: output
+
+    - name: Run `docker-compose up`
+      community.docker.docker_compose_v2:
+        project_src: /home/proyectos/JLAC008/CrudBackend/docker
+        build: always
+      register: output
+
+    - name: Clonando repositorio git JLAC008 CrudFrontend
+      git:
+        repo: "https://github.com/JLAC008/CrudFrontend"
+        dest: "/home/proyectos/JLAC008/CrudFrontend"
+        force: yes
+        update: yes
