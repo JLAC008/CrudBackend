@@ -28,7 +28,7 @@
 
     - name: Run `docker-compose up` CrudBackend
       community.docker.docker_compose_v2:
-        project_src: /home/proyectos/JLAC008/CrudBackend/docker
+        project_src: /home/proyectos/JLAC008/CrudBackend/CrudJLAC/docker
         build: always
       register: output
 
