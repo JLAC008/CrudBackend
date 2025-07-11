@@ -14,13 +14,19 @@
         src: ~/IdeaProjects/CrudBackend/CrudJLAC/src/main/resources/
         dest: /home/proyectos/JLAC008/CrudBackend/CrudJLAC/src/main/resources/
 
-    - name: Run `docker-compose down`
+    - name: Crear red Docker llamada app-net
+      community.docker.docker_network:
+        name: app-net
+        state: present
+        driver: bridge
+
+    - name: Run `docker-compose down` CrudBackend
       community.docker.docker_compose_v2:
-        project_src: /home/proyectos/JLAC008/CrudBackend/docker
+        project_src: /home/proyectos/JLAC008/CrudBackend/CrudJLAC/docker
         state: absent
       register: output
 
-    - name: Run `docker-compose up`
+    - name: Run `docker-compose up` CrudBackend
       community.docker.docker_compose_v2:
         project_src: /home/proyectos/JLAC008/CrudBackend/docker
         build: always
@@ -32,3 +38,15 @@
         dest: "/home/proyectos/JLAC008/CrudFrontend"
         force: yes
         update: yes
+
+    - name: Run `docker-compose down` CrudFrontend
+      community.docker.docker_compose_v2:
+        project_src: /home/proyectos/JLAC008/CrudFrontend/docker
+        state: absent
+      register: output
+
+    - name: Run `docker-compose up` CrudFrontend
+      community.docker.docker_compose_v2:
+        project_src: /home/proyectos/JLAC008/CrudFrontend/docker
+        build: always
+      register: output
